@@ -13,7 +13,9 @@ We explored and compared three modeling approaches:
 2. **RNN (LSTM-based)** – A sequential deep learning model capturing word order.
 3. **BERT + LoRA** – A state-of-the-art transformer with parameter-efficient fine-tuning.
 
-The project was conducted as part of the course *"Advanced Models of Language Understanding"* at Ariel University.
+## Motivation
+
+Manual moderation of offensive content is impractical due to the massive scale of social media. During a period of global unrest and rising antisemitism, I encountered disturbing online content. This project was born out of a desire to develop automated tools that could detect, analyze, and even help counteract toxic discourse in real time.
 
 ## Repository Structure
 
@@ -23,7 +25,6 @@ The project was conducted as part of the course *"Advanced Models of Language Un
 ├── TF-IDF_LR.py              # Logistic Regression with TF-IDF
 ├── clean_dataset.py          # Preprocessing and data splitting functions
 ├── labeled_data.csv          # Dataset (annotated tweets)
-├── Language moduls - final.pdf # Final report (in Hebrew)
 ├── הנחיות לפרויקט.pdf         # Project guidelines from course
 ```
 
@@ -33,22 +34,33 @@ The project was conducted as part of the course *"Advanced Models of Language Un
 - **Size**: ~25,000 tweets
 - **Imbalance**: Class 1 (Offensive) dominates (~77%), with Hate Speech (Class 0) being the minority (~6%).
 
+## Preprocessing
+
+- Lowercasing
+- Removal of URLs, mentions, hashtags, emojis, and special characters
+- Keeping alphabetic characters only
+- Saved both clean and original versions
+
+Train-test split: stratified 80/20
+
 ## Models and Methods
 
 ### 1. TF-IDF + Logistic Regression
-- Vectorized tweets using 1–2 grams and stopword removal.
-- Trained Logistic Regression with class balancing.
-- Result: Highest accuracy (89.1%), strong performance on Class 0.
+- Uses `TfidfVectorizer` on unigrams and bigrams (max 5000 features)
+- `class_weight='balanced'` to mitigate label imbalance
+- Achieved the **highest overall accuracy (89.1%)** and **F1 score for Hate Speech (0.465)**
 
-### 2. Improved RNN (Bi-LSTM)
-- Used embedding + bidirectional LSTM.
-- Trained with weighted loss and dropout regularization.
-- Result: Moderate performance, struggled with rare class.
+### 2. Classic RNN
+- Tokenization via Keras `Tokenizer`, padded sequences
+- Model: Embedding + RNN (128 hidden units) + Linear
+- Trained with `CrossEntropyLoss`, Adam optimizer
+- **Accuracy: 78.4%**, but lower performance on minority class
 
-### 3. BERT + LoRA
-- Used `bert-base-uncased` with LoRA for efficient fine-tuning.
-- Applied class balancing and learning rate scheduling.
-- Result: Strong context understanding, balanced performance with fewer trainable parameters.
+### 3. BERT + LoRA (Low-Rank Adaptation)
+- Model: `bert-base-uncased` + LoRA injected in attention layers
+- Class imbalance handled using `class_weight` and `WeightedRandomSampler`
+- **F1 score for Hate Speech improved to 0.403**
+- More robust in capturing offensive and neutral language
 
 ## How to Run
 
@@ -78,4 +90,7 @@ python BERT_LoRA.py
 - TF-IDF + LR outperformed expectations.
 - LoRA improves BERT’s efficiency without sacrificing too much performance.
 
+## References
 
+- **Dataset**: [Kaggle - Hate Speech and Offensive Language](https://www.kaggle.com/datasets/lxqd/twitter-hate-speech)
+- **Paper**: [Offensive Language Detection on Social Media using XLNet](https://arxiv.org/html/2506.21795v1)
