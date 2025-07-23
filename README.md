@@ -1,7 +1,7 @@
 
 # Hate Speech Detection on Twitter Using NLP Models
 
-## 📌 Project Overview
+## Project Overview
 
 This project aims to detect and classify hate speech on Twitter into three categories:
 - **Hate Speech (0)**
@@ -15,7 +15,7 @@ We explored and compared three modeling approaches:
 
 The project was conducted as part of the course *"Advanced Models of Language Understanding"* at Ariel University.
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ├── BERT_LoRA.py              # BERT with Low-Rank Adaptation (LoRA)
@@ -27,13 +27,13 @@ The project was conducted as part of the course *"Advanced Models of Language Un
 ├── הנחיות לפרויקט.pdf         # Project guidelines from course
 ```
 
-## 📊 Dataset
+## Dataset
 
 - **Source**: Hate Speech and Offensive Language Dataset (Kaggle)
 - **Size**: ~25,000 tweets
 - **Imbalance**: Class 1 (Offensive) dominates (~77%), with Hate Speech (Class 0) being the minority (~6%).
 
-## 🧪 Models and Methods
+## Models and Methods
 
 ### 1. TF-IDF + Logistic Regression
 - Vectorized tweets using 1–2 grams and stopword removal.
@@ -50,7 +50,7 @@ The project was conducted as part of the course *"Advanced Models of Language Un
 - Applied class balancing and learning rate scheduling.
 - Result: Strong context understanding, balanced performance with fewer trainable parameters.
 
-## ⚙️ How to Run
+## How to Run
 
 Install dependencies:
 ```
@@ -64,7 +64,7 @@ python RNN_model.py
 python BERT_LoRA.py
 ```
 
-## 📈 Results Summary
+## Results Summary
 
 | Model                    | Accuracy | F1 (Hate Speech) | F1 (Offensive) |
 |-------------------------|----------|------------------|----------------|
@@ -72,28 +72,10 @@ python BERT_LoRA.py
 | RNN (Bi-LSTM)           | 78.4%    | 0.356            | 0.854          |
 | BERT + LoRA             | 84.5%    | 0.403            | 0.90+          |
 
-## 📌 Key Insights
+## Key Insights
 
 - Data imbalance heavily affects Hate Speech detection.
 - TF-IDF + LR outperformed expectations.
 - LoRA improves BERT’s efficiency without sacrificing too much performance.
 
-## 🚧 Limitations
-
-- No advanced oversampling or data augmentation.
-- RNN used no pretrained embeddings.
-- Limited hyperparameter tuning.
-- Sarcasm or coded language remains difficult.
-
-## 🔭 Future Work
-
-- Apply focal loss or advanced balancing methods.
-- Add pretrained embeddings to RNN.
-- Use lightweight transformers (e.g., DistilBERT).
-- Try data augmentation (e.g., back-translation).
-
-## 🧠 Author
-
-Guy Eshel – Computer Science student at Ariel University  
-Project for: *Advanced Models of Language Understanding*
 
