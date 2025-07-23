@@ -9,9 +9,9 @@ This project aims to detect and classify hate speech on Twitter into three categ
 - **Neither (2)**
 
 We explored and compared three modeling approaches:
-1. **TF-IDF + Logistic Regression** – A classical, interpretable baseline.
-2. **RNN (LSTM-based)** – A sequential deep learning model capturing word order.
-3. **BERT + LoRA** – A state-of-the-art transformer with parameter-efficient fine-tuning.
+1. **TF-IDF + Logistic Regression** (baseline statistical model)
+2. **Classic RNN** (sequence model)
+3. **BERT + LoRA** (state-of-the-art transformer with parameter-efficient fine-tuning)
 
 ## Motivation
 
